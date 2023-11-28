@@ -1,0 +1,19 @@
+    name: Java CI with Maven Saad Ahmad
+    on:
+      push:
+        branches: [ "main" ] 
+      pull_request:
+        branches: [ "main" ]
+        
+    jobs:
+      build:
+        runs-on: ubuntu-latest 
+        steps:
+          - name: Checkout Repository 
+            uses: actions/checkout@v3
+          - name: Build Docker Image 
+            run: |
+              docker login -u ${{secrets. DOCKER_USERNAME}} -p ${{secrets. DOCKER_PASSWORD}} 
+              docker build -t saadbangashh/i200508-javamaven .
+          - name: Push Docker Image
+            run: docker push saadbangashh/i200508-javamaven
